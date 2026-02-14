@@ -14,9 +14,19 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 500));
 
-    const foundUser = mockUsers.find(
+    // Check mock users
+    let foundUser = mockUsers.find(
       u => u.email === credentials.email && u.role === credentials.role
     );
+
+    // If not found in mock, check registered users
+    if (!foundUser) {
+      const storedUsersStr = localStorage.getItem('registeredUsers');
+      const storedUsers: User[] = storedUsersStr ? JSON.parse(storedUsersStr) : [];
+      foundUser = storedUsers.find(
+        u => u.email === credentials.email && u.role === credentials.role
+      );
+    }
 
     if (!foundUser) {
       throw new Error('Usuario no encontrado o credenciales incorrectas');
@@ -24,6 +34,28 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
     setUser(foundUser);
     localStorage.setItem('currentUser', JSON.stringify(foundUser));
+  };
+
+  const register = async (newUser: User): Promise<void> => {
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 500));
+
+    // Get existing registered users
+    const storedUsersStr = localStorage.getItem('registeredUsers');
+    const storedUsers: User[] = storedUsersStr ? JSON.parse(storedUsersStr) : [];
+
+    // Check if email already exists
+    if (mockUsers.some(u => u.email === newUser.email) || storedUsers.some(u => u.email === newUser.email)) {
+      throw new Error('El correo electrónico ya está registrado');
+    }
+
+    // Add user
+    const updatedUsers = [...storedUsers, newUser];
+    localStorage.setItem('registeredUsers', JSON.stringify(updatedUsers));
+
+    // Auto login
+    setUser(newUser);
+    localStorage.setItem('currentUser', JSON.stringify(newUser));
   };
 
   const logout = () => {
@@ -37,6 +69,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         user,
         isAuthenticated: !!user,
         login,
+        register,
         logout,
       }}
     >

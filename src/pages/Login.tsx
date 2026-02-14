@@ -97,6 +97,16 @@ export const Login: React.FC = () => {
               </Button>
             </form>
 
+            <div className="mt-4 text-center">
+              <button
+                type="button"
+                onClick={() => navigate(isOwner ? '/register/owner' : '/register/veterinarian')}
+                className="text-sm text-blue-600 hover:text-blue-700 font-medium hover:underline"
+              >
+                ¿No tienes cuenta? Regístrate aquí
+              </button>
+            </div>
+
             <div className="mt-6 p-4 bg-gray-50 rounded-lg">
               <p className="text-xs text-gray-600 font-medium mb-2">Usuarios de prueba:</p>
               {isOwner ? (

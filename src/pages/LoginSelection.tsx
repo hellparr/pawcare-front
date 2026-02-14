@@ -24,8 +24,7 @@ export const LoginSelection: React.FC = () => {
         <div className="grid md:grid-cols-2 gap-6">
           {/* Owner Login */}
           <Card
-            onClick={() => navigate('/login/owner')}
-            className="cursor-pointer hover:shadow-2xl transition-all transform hover:-translate-y-1"
+            className="hover:shadow-2xl transition-all transform hover:-translate-y-1"
           >
             <CardContent>
               <div className="text-center py-8">
@@ -38,8 +37,19 @@ export const LoginSelection: React.FC = () => {
                 <p className="text-gray-600 mb-6">
                   Accede para gestionar la información de tus mascotas y ver su historial médico
                 </p>
-                <div className="inline-block px-6 py-3 bg-blue-600 text-white rounded-lg font-medium">
-                  Iniciar Sesión
+                <div className="flex flex-col space-y-3">
+                  <button
+                    onClick={() => navigate('/login/owner')}
+                    className="w-full px-6 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors"
+                  >
+                    Iniciar Sesión
+                  </button>
+                  <button
+                    onClick={() => navigate('/register/owner')}
+                    className="w-full px-6 py-3 bg-white text-blue-600 border-2 border-blue-600 rounded-lg font-medium hover:bg-blue-50 transition-colors"
+                  >
+                    Crear Cuenta
+                  </button>
                 </div>
               </div>
             </CardContent>
@@ -47,8 +57,7 @@ export const LoginSelection: React.FC = () => {
 
           {/* Veterinarian Login */}
           <Card
-            onClick={() => navigate('/login/veterinarian')}
-            className="cursor-pointer hover:shadow-2xl transition-all transform hover:-translate-y-1"
+            className="hover:shadow-2xl transition-all transform hover:-translate-y-1"
           >
             <CardContent>
               <div className="text-center py-8">
@@ -61,8 +70,19 @@ export const LoginSelection: React.FC = () => {
                 <p className="text-gray-600 mb-6">
                   Accede para gestionar tus pacientes y registrar consultas médicas
                 </p>
-                <div className="inline-block px-6 py-3 bg-green-600 text-white rounded-lg font-medium">
-                  Iniciar Sesión
+                <div className="flex flex-col space-y-3">
+                  <button
+                    onClick={() => navigate('/login/veterinarian')}
+                    className="w-full px-6 py-3 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition-colors"
+                  >
+                    Iniciar Sesión
+                  </button>
+                  <button
+                    onClick={() => navigate('/register/veterinarian')}
+                    className="w-full px-6 py-3 bg-white text-green-600 border-2 border-green-600 rounded-lg font-medium hover:bg-green-50 transition-colors"
+                  >
+                    Crear Cuenta
+                  </button>
                 </div>
               </div>
             </CardContent>

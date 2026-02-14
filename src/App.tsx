@@ -3,14 +3,15 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { LoginSelection } from './pages/LoginSelection';
 import { Login } from './pages/Login';
+import { Register } from './pages/Register';
 import { OwnerProfile } from './pages/owner/OwnerProfile';
 import { RegisterPet } from './pages/owner/RegisterPet';
 import { VeterinarianDashboard } from './pages/veterinarian/VeterinarianDashboard';
 import { AppointmentForm } from './pages/veterinarian/AppointmentForm';
 
-const PrivateRoute: React.FC<{ children: React.ReactNode; allowedRole?: string }> = ({ 
-  children, 
-  allowedRole 
+const PrivateRoute: React.FC<{ children: React.ReactNode; allowedRole?: string }> = ({
+  children,
+  allowedRole
 }) => {
   const { isAuthenticated, user } = useAuth();
 
@@ -31,17 +32,18 @@ const AppRoutes: React.FC = () => {
   return (
     <Routes>
       {/* Public Routes */}
-      <Route 
-        path="/login" 
+      <Route
+        path="/login"
         element={
           isAuthenticated ? (
             <Navigate to={user?.role === 'owner' ? '/owner/profile' : '/veterinarian/dashboard'} replace />
           ) : (
             <LoginSelection />
           )
-        } 
+        }
       />
       <Route path="/login/:role" element={<Login />} />
+      <Route path="/register/:role" element={<Register />} />
 
       {/* Owner Routes */}
       <Route

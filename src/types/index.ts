@@ -127,5 +127,6 @@ export interface AuthState {
   user: User | null;
   isAuthenticated: boolean;
   login: (credentials: LoginCredentials) => Promise<void>;
+  register: (user: User) => Promise<void>;
   logout: () => void;
 }
